@@ -1,7 +1,8 @@
 package repairmsg.util;
 
 import repairmsg.model.MessageRequest;
- 
+import org.springframework.stereotype.Component;
+@Component
 public class PromptBuilder {
 
     public String buildPrompt(MessageRequest request) {
