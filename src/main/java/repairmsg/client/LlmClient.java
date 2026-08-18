@@ -10,17 +10,21 @@ import org.springframework.web.client.RestClient;
 @Component
 public class LlmClient {
     private static final String GEMINI_URL =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent";
     
     private final RestClient restClient;
     private final String apiKey;
 
-    public LlmClient(@Value("${gemini.api.key}") String apiKey) {
+    public LlmClient(@Value("${gemini.api.key:}") String apiKey) {
         this.apiKey = apiKey;
         this.restClient = RestClient.create();
     }
 
     public String generateText(String prompt) {
+        if (apiKey == null || apiKey.isBlank()) {
+            throw new IllegalStateException("GEMINI_API_KEY is not configured.");
+        }
+
         Map<String, Object> requestBody = Map.of(
             "contents", List.of(
                 Map.of("parts", List.of(
@@ -45,4 +49,3 @@ public class LlmClient {
         private record Part(String text) {}
     }
 }
-
