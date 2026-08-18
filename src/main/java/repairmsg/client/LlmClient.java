@@ -15,12 +15,16 @@ public class LlmClient {
     private final RestClient restClient;
     private final String apiKey;
 
-    public LlmClient(@Value("${gemini.api.key}") String apiKey) {
+    public LlmClient(@Value("${gemini.api.key:}") String apiKey) {
         this.apiKey = apiKey;
         this.restClient = RestClient.create();
     }
 
     public String generateText(String prompt) {
+        if (apiKey == null || apiKey.isBlank()) {
+            throw new IllegalStateException("GEMINI_API_KEY is not configured.");
+        }
+
         Map<String, Object> requestBody = Map.of(
             "contents", List.of(
                 Map.of("parts", List.of(
