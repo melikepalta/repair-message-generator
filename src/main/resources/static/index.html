@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Turn repair notes into clear customer-ready messages.">
+  <title>RepairMessage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="RepairMessage home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>RepairMessage</span>
+      </a>
+      <span class="status"><span class="status-dot"></span>AI assistant ready</span>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">CUSTOMER COMMUNICATION, SIMPLIFIED</p>
+      <h1>Turn repair notes into<br><span>messages customers love.</span></h1>
+      <p class="subtitle">Add the job details. Get a polished, ready-to-send update in seconds.</p>
+    </section>
+
+    <section class="workspace" aria-label="Message generator">
+      <form id="message-form" class="composer">
+        <div class="form-heading">
+          <div>
+            <p class="step">01</p>
+            <h2>Repair details</h2>
+          </div>
+          <button class="clear-button" type="button" id="clear-button">Clear all</button>
+        </div>
+
+        <div class="field-grid">
+          <label class="field">
+            <span>Device type</span>
+            <input id="device-type" name="deviceType" type="text" placeholder="e.g. iPhone 14" autocomplete="off">
+          </label>
+          <label class="field">
+            <span>Message type</span>
+            <select id="message-type" name="messageType">
+              <option value="repair completion">Repair complete</option>
+              <option value="repair status update">Status update</option>
+              <option value="repair estimate">Estimate ready</option>
+              <option value="device pickup reminder">Pickup reminder</option>
+              <option value="repair delay update">Delay update</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="field notes-field">
+          <span>Repair notes <em>Required</em></span>
+          <textarea id="repair-notes" name="repairNotes" rows="6" maxlength="1000" required placeholder="What was repaired? Include only details you want the customer to know."></textarea>
+          <small><span id="character-count">0</span>/1000</small>
+        </label>
+
+        <label class="field">
+          <span>Tone</span>
+          <select id="tone" name="tone">
+            <option value="friendly and professional">Friendly &amp; professional</option>
+            <option value="warm and reassuring">Warm &amp; reassuring</option>
+            <option value="short and direct">Short &amp; direct</option>
+            <option value="formal and polished">Formal &amp; polished</option>
+            <option value="casual and upbeat">Casual &amp; upbeat</option>
+          </select>
+        </label>
+
+        <button class="generate-button" type="submit" id="generate-button">
+          <span class="button-label">Generate message</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+
+      <section class="result-panel" aria-live="polite">
+        <div class="form-heading">
+          <div>
+            <p class="step">02</p>
+            <h2>Your message</h2>
+          </div>
+          <button class="copy-button" type="button" id="copy-button" hidden>Copy</button>
+        </div>
+        <div class="result-box" id="result-box">
+          <div class="empty-state" id="empty-state">
+            <span class="message-icon" aria-hidden="true">✦</span>
+            <h3>Your message will appear here</h3>
+            <p>Fill in the repair details and let AI handle the wording.</p>
+          </div>
+          <p class="generated-message" id="generated-message" hidden></p>
+          <div class="loading-state" id="loading-state" hidden>
+            <span class="spinner"></span>
+            <p>Writing your message…</p>
+          </div>
+        </div>
+        <p class="error-message" id="error-message" role="alert" hidden></p>
+        <p class="privacy-note">Your Gemini API key stays securely on the server.</p>
+      </section>
+    </section>
+
+    <footer>
+      <p>Built for repair shops that care about clear communication.</p>
+    </footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>
